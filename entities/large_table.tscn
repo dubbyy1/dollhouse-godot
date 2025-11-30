@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://dbp28a4xjk6gn"]
+
+[ext_resource type="PackedScene" uid="uid://bph0b84cnxyfq" path="res://entity.tscn" id="1_2afwe"]
+[ext_resource type="PackedScene" uid="uid://88ifvg30twwp" path="res://sibling_location.tscn" id="2_qvl6w"]
+[ext_resource type="PackedScene" uid="uid://j0q63tpfddrl" path="res://child_location.tscn" id="3_271sy"]
+[ext_resource type="Texture2D" uid="uid://clsp57wulad4f" path="res://sprites/entities/large_table.png" id="4_2afwe"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xk2vk"]
+size = Vector2(48, 32)
+
+[node name="large_table" instance=ExtResource("1_2afwe")]
+game_name = "table"
+
+[node name="sibling_locations" parent="." index="0"]
+visible = false
+
+[node name="sibling_location" parent="sibling_locations" index="0"]
+position = Vector2(0, 32)
+
+[node name="sibling_location2" parent="sibling_locations" index="1" instance=ExtResource("2_qvl6w")]
+position = Vector2(16, 32)
+
+[node name="sibling_location3" parent="sibling_locations" index="2" instance=ExtResource("2_qvl6w")]
+position = Vector2(32, 32)
+
+[node name="sibling_location4" parent="sibling_locations" index="3" instance=ExtResource("2_qvl6w")]
+position = Vector2(48, 16)
+
+[node name="sibling_location7" parent="sibling_locations" index="4" instance=ExtResource("2_qvl6w")]
+position = Vector2(48, 0)
+
+[node name="sibling_location8" parent="sibling_locations" index="5" instance=ExtResource("2_qvl6w")]
+position = Vector2(32, -16)
+
+[node name="sibling_location9" parent="sibling_locations" index="6" instance=ExtResource("2_qvl6w")]
+position = Vector2(16, -16)
+
+[node name="sibling_location10" parent="sibling_locations" index="7" instance=ExtResource("2_qvl6w")]
+position = Vector2(0, -16)
+
+[node name="sibling_location5" parent="sibling_locations" index="8" instance=ExtResource("2_qvl6w")]
+position = Vector2(-16, 0)
+
+[node name="sibling_location6" parent="sibling_locations" index="9" instance=ExtResource("2_qvl6w")]
+position = Vector2(-16, 16)
+
+[node name="child_locations" parent="." index="1"]
+visible = false
+
+[node name="child_location" parent="child_locations" index="0"]
+position = Vector2(16, 16)
+
+[node name="child_location2" parent="child_locations" index="1" instance=ExtResource("3_271sy")]
+position = Vector2(0, 16)
+
+[node name="child_location3" parent="child_locations" index="2" instance=ExtResource("3_271sy")]
+position = Vector2(32, 16)
+
+[node name="child_location4" parent="child_locations" index="3" instance=ExtResource("3_271sy")]
+position = Vector2(32, 0)
+
+[node name="child_location5" parent="child_locations" index="4" instance=ExtResource("3_271sy")]
+position = Vector2(16, 0)
+
+[node name="child_location6" parent="child_locations" index="5" instance=ExtResource("3_271sy")]
+
+[node name="collision" parent="." index="2"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collision" index="0"]
+position = Vector2(24, 16)
+shape = SubResource("RectangleShape2D_xk2vk")
+
+[node name="sprite" parent="." index="3"]
+offset_right = 16.0
+offset_bottom = 32.0
+texture = ExtResource("4_2afwe")
+
+[node name="button" parent="." index="4"]
+offset_right = 48.0
+offset_bottom = 32.0

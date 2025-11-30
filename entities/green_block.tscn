@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwk2wiidwmxka"]
+
+[ext_resource type="PackedScene" uid="uid://bph0b84cnxyfq" path="res://entity.tscn" id="1_8geck"]
+[ext_resource type="PackedScene" uid="uid://88ifvg30twwp" path="res://sibling_location.tscn" id="2_5bmm5"]
+[ext_resource type="Texture2D" uid="uid://brnsehtwlue64" path="res://sprites/entities/green_block.png" id="2_8geck"]
+
+[node name="green_block" instance=ExtResource("1_8geck")]
+game_name = "green block"
+game_hidden = "False"
+
+[node name="sibling_locations" parent="." index="0"]
+visible = false
+
+[node name="sibling_location" parent="sibling_locations" index="0"]
+position = Vector2(0, 16)
+
+[node name="sibling_location2" parent="sibling_locations" index="1" instance=ExtResource("2_5bmm5")]
+position = Vector2(16, 0)
+
+[node name="sibling_location3" parent="sibling_locations" index="2" instance=ExtResource("2_5bmm5")]
+position = Vector2(0, -16)
+
+[node name="sibling_location4" parent="sibling_locations" index="3" instance=ExtResource("2_5bmm5")]
+position = Vector2(-16, 0)
+
+[node name="child_locations" parent="." index="1"]
+visible = false
+
+[node name="collision" parent="." index="2"]
+visible = false
+
+[node name="sprite" parent="." index="3"]
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("2_8geck")

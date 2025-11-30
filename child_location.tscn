@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://j0q63tpfddrl"]
+
+[ext_resource type="Texture2D" uid="uid://d0fpyoy3odwbr" path="res://sprites/editor/child_location.png" id="1_jgsxs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jgsxs"]
+size = Vector2(14, 14)
+
+[node name="child_location" type="Area2D"]
+collision_layer = 0
+
+[node name="collision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_jgsxs")
+
+[node name="sprite" type="TextureRect" parent="."]
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("1_jgsxs")

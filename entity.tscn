@@ -1,0 +1,104 @@
+[gd_scene load_steps=13 format=3 uid="uid://bph0b84cnxyfq"]
+
+[ext_resource type="Script" uid="uid://ne1aqdrpxjyv" path="res://entity.gd" id="1_6e8rh"]
+[ext_resource type="PackedScene" uid="uid://88ifvg30twwp" path="res://sibling_location.tscn" id="2_1hufk"]
+[ext_resource type="Texture2D" uid="uid://ih8elx8uxb56" path="res://sprites/editor/delete_normal.png" id="2_03rkj"]
+[ext_resource type="PackedScene" uid="uid://j0q63tpfddrl" path="res://child_location.tscn" id="2_2455w"]
+[ext_resource type="Texture2D" uid="uid://44ptjqybvt6g" path="res://sprites/editor/delete_pressed.png" id="3_5878s"]
+[ext_resource type="Texture2D" uid="uid://cy20mdcsoudnx" path="res://sprites/editor/duplicate_normal.png" id="3_pimh3"]
+[ext_resource type="Texture2D" uid="uid://b5nn11k7i78du" path="res://sprites/editor/move_normal.png" id="4_6tppj"]
+[ext_resource type="Texture2D" uid="uid://cau0x02jtxgun" path="res://sprites/editor/delete_hover.png" id="4_2455w"]
+[ext_resource type="Texture2D" uid="uid://23euogbgcx0g" path="res://sprites/editor/duplicate_pressed.png" id="6_1hufk"]
+[ext_resource type="Texture2D" uid="uid://dutib1x2wvd1e" path="res://sprites/editor/duplicate_hover.png" id="7_5d04d"]
+[ext_resource type="Texture2D" uid="uid://drr31bsq7t3h2" path="res://sprites/editor/move_pressed.png" id="9_idiep"]
+[ext_resource type="Texture2D" uid="uid://dr6tyyd0h1got" path="res://sprites/editor/move_hover.png" id="10_4ft8h"]
+
+[node name="entity" type="Node2D"]
+script = ExtResource("1_6e8rh")
+
+[node name="sibling_locations" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="sibling_location" parent="sibling_locations" instance=ExtResource("2_1hufk")]
+
+[node name="child_locations" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="child_location" parent="child_locations" instance=ExtResource("2_2455w")]
+
+[node name="collision" type="StaticBody2D" parent="."]
+
+[node name="sprite" type="TextureRect" parent="."]
+clip_children = 2
+
+[node name="selected" type="ColorRect" parent="sprite"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 0, 0.25098)
+
+[node name="button" type="TextureButton" parent="."]
+offset_right = 16.0
+offset_bottom = 16.0
+
+[node name="edit_controls" type="Control" parent="button"]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -6.0
+offset_top = -7.0
+offset_right = 37.0
+offset_bottom = 6.0
+grow_horizontal = 0
+
+[node name="delete" type="TextureButton" parent="button/edit_controls"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 30.0
+offset_right = 43.0
+offset_bottom = 13.0
+texture_normal = ExtResource("2_03rkj")
+texture_pressed = ExtResource("3_5878s")
+texture_hover = ExtResource("4_2455w")
+
+[node name="duplicate" type="TextureButton" parent="button/edit_controls"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 15.0
+offset_right = 28.0
+offset_bottom = 13.0
+texture_normal = ExtResource("3_pimh3")
+texture_pressed = ExtResource("6_1hufk")
+texture_hover = ExtResource("7_5d04d")
+
+[node name="move" type="TextureButton" parent="button/edit_controls"]
+show_behind_parent = true
+layout_mode = 0
+offset_right = 13.0
+offset_bottom = 13.0
+texture_normal = ExtResource("4_6tppj")
+texture_pressed = ExtResource("9_idiep")
+texture_hover = ExtResource("10_4ft8h")
+
+[node name="navigator" type="NavigationAgent2D" parent="."]
+path_desired_distance = 16.0
+target_desired_distance = 8.0
+
+[connection signal="mouse_entered" from="sprite" to="." method="_on_sprite_mouse_entered"]
+[connection signal="mouse_exited" from="sprite" to="." method="_on_sprite_mouse_exited"]
+[connection signal="mouse_entered" from="button" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="button" to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="button" to="." method="_on_button_pressed"]
+[connection signal="mouse_entered" from="button/edit_controls" to="." method="_on_edit_controls_mouse_entered"]
+[connection signal="mouse_exited" from="button/edit_controls/delete" to="." method="_on_edit_controls_mouse_exited"]
+[connection signal="pressed" from="button/edit_controls/delete" to="." method="_on_delete_pressed"]
+[connection signal="mouse_exited" from="button/edit_controls/duplicate" to="." method="_on_edit_controls_mouse_exited"]
+[connection signal="pressed" from="button/edit_controls/duplicate" to="." method="_on_duplicate_pressed"]
+[connection signal="mouse_exited" from="button/edit_controls/move" to="." method="_on_edit_controls_mouse_exited"]
+[connection signal="pressed" from="button/edit_controls/move" to="." method="_on_move_pressed"]

@@ -1,0 +1,488 @@
+[gd_scene load_steps=18 format=3 uid="uid://ci55cus0slt7s"]
+
+[ext_resource type="Script" uid="uid://bsty881c424i7" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://de5mtnn58ukgl" path="res://sprites/editor/bg.png" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://b6fvdm2lxadvl" path="res://sprites/frame/start_normal.png" id="3_w48qg"]
+[ext_resource type="Texture2D" uid="uid://cjxnospr0j2fg" path="res://sprites/frame/left_pane.png" id="3_yaehf"]
+[ext_resource type="Texture2D" uid="uid://1krk7tu74jrt" path="res://sprites/frame/right_pane.png" id="4_074og"]
+[ext_resource type="Texture2D" uid="uid://d0l52vwget4s1" path="res://sprites/frame/start_pressed.png" id="4_vivmo"]
+[ext_resource type="Texture2D" uid="uid://bflsgem8vxof0" path="res://sprites/frame/top_panel.png" id="5_cegan"]
+[ext_resource type="Texture2D" uid="uid://clm0ugjj8g42c" path="res://sprites/frame/previous_normal.png" id="6_yaehf"]
+[ext_resource type="Texture2D" uid="uid://bxp4oc250rrub" path="res://sprites/frame/previous_pressed.png" id="7_074og"]
+[ext_resource type="Texture2D" uid="uid://ctxxkomr06evt" path="res://sprites/frame/previous_hover.png" id="8_cegan"]
+[ext_resource type="Texture2D" uid="uid://bh0muond8x8kp" path="res://sprites/frame/start_hover.png" id="8_yaehf"]
+[ext_resource type="Texture2D" uid="uid://b2wwhditmomc" path="res://sprites/frame/pause_normal.png" id="9_82xsv"]
+[ext_resource type="Texture2D" uid="uid://cjobrjh4trli5" path="res://sprites/frame/pause_pressed.png" id="10_getpj"]
+[ext_resource type="Texture2D" uid="uid://nb3luqqriowy" path="res://sprites/frame/pause_hover.png" id="11_ryguw"]
+[ext_resource type="Texture2D" uid="uid://bfqlm8gwxygy3" path="res://sprites/frame/next_normal.png" id="12_d13ii"]
+[ext_resource type="Texture2D" uid="uid://clpimvvbequ22" path="res://sprites/frame/next_pressed.png" id="13_1u8w0"]
+[ext_resource type="Texture2D" uid="uid://corkqrofelcfj" path="res://sprites/frame/next_hover.png" id="14_0odxb"]
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_0xm2m")
+
+[node name="world" type="Node2D" parent="."]
+
+[node name="bg" type="TextureRect" parent="world"]
+offset_left = -1016.0
+offset_top = -1016.0
+offset_right = 1032.0
+offset_bottom = 1032.0
+texture = ExtResource("3_h2yge")
+stretch_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="floater" type="Node2D" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="left_pane" type="TextureRect" parent="UI"]
+self_modulate = Color(1, 1, 1, 0.8)
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_top = 24.0
+offset_right = 108.0
+grow_vertical = 2
+texture = ExtResource("3_yaehf")
+
+[node name="entities" type="ScrollContainer" parent="UI/left_pane"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="grid" type="GridContainer" parent="UI/left_pane/entities"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 2
+
+[node name="right_pane" type="TextureRect" parent="UI"]
+self_modulate = Color(1, 1, 1, 0.8)
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = 24.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("4_074og")
+
+[node name="entity_settings" type="Control" parent="UI/right_pane"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -86.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="name" type="Label" parent="UI/right_pane/entity_settings"]
+layout_mode = 0
+offset_top = 4.0
+offset_right = 26.0
+offset_bottom = 16.0
+tooltip_text = "The name of the object.
+Visible to the game AI and the player AI."
+mouse_filter = 1
+theme_override_font_sizes/font_size = 8
+text = "name:"
+
+[node name="input" type="LineEdit" parent="UI/right_pane/entity_settings/name"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -4.0
+offset_right = 94.0
+offset_bottom = 4.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+placeholder_text = "Doorbell"
+
+[node name="parent" type="Label" parent="UI/right_pane/entity_settings"]
+layout_mode = 0
+offset_top = 28.0
+offset_right = 26.0
+offset_bottom = 40.0
+tooltip_text = "The object that contains and/or posesses this object.
+Used by the AI to interpret ownership and positioning."
+mouse_filter = 1
+theme_override_font_sizes/font_size = 8
+text = "parent:"
+
+[node name="input" type="OptionButton" parent="UI/right_pane/entity_settings/parent"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -4.0
+offset_right = 91.0
+offset_bottom = 4.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+selected = 0
+item_count = 1
+popup/item_0/text = "World"
+popup/item_0/id = 0
+
+[node name="description" type="Label" parent="UI/right_pane/entity_settings"]
+layout_mode = 0
+offset_top = 52.0
+offset_right = 29.0
+offset_bottom = 64.0
+tooltip_text = "The description of the object.
+Visible to the game AI and the player AI.
+Used to describe the object without reference to
+its current environment or other objects.
+Can't be changed by the AI. "
+mouse_filter = 1
+theme_override_font_sizes/font_size = 8
+text = "description:"
+
+[node name="input" type="TextEdit" parent="UI/right_pane/entity_settings/description"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_right = 74.0
+offset_bottom = 43.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/line_spacing = -1
+theme_override_font_sizes/font_size = 8
+placeholder_text = "A worn out brass button beside the front door."
+wrap_mode = 1
+autowrap_mode = 2
+
+[node name="status" type="Label" parent="UI/right_pane/entity_settings"]
+layout_mode = 0
+offset_top = 111.0
+offset_right = 46.0
+offset_bottom = 123.0
+tooltip_text = "The current status of the object.
+Can be changed by the game AI.
+Used to describe the state of an object, possibly
+with reference to other objects."
+mouse_filter = 1
+theme_override_font_sizes/font_size = 8
+text = "status:"
+
+[node name="input" type="TextEdit" parent="UI/right_pane/entity_settings/status"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_right = 74.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/line_spacing = -1
+theme_override_font_sizes/font_size = 8
+placeholder_text = "Broken"
+wrap_mode = 1
+autowrap_mode = 2
+
+[node name="note" type="Label" parent="UI/right_pane/entity_settings"]
+layout_mode = 0
+offset_top = 159.0
+offset_right = 46.0
+offset_bottom = 171.0
+tooltip_text = "A note for the AI. 
+Use this to tell the game more detail about the function of this object."
+mouse_filter = 1
+theme_override_font_sizes/font_size = 8
+text = "note:"
+
+[node name="input" type="TextEdit" parent="UI/right_pane/entity_settings/note"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_right = 74.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/line_spacing = -1
+theme_override_font_sizes/font_size = 8
+placeholder_text = "Notify everyone in the house when pressed."
+wrap_mode = 1
+autowrap_mode = 2
+
+[node name="conceal" type="Label" parent="UI/right_pane/entity_settings"]
+layout_mode = 0
+offset_top = 211.0
+offset_right = 32.0
+offset_bottom = 223.0
+tooltip_text = "If enabled, the object's children can't be seen from the outside."
+mouse_filter = 1
+theme_override_font_sizes/font_size = 8
+text = "conceal:"
+
+[node name="input" type="CheckBox" parent="UI/right_pane/entity_settings/conceal"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -6.0
+offset_right = 26.0
+offset_bottom = 6.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+
+[node name="hidden" type="Label" parent="UI/right_pane/entity_settings"]
+layout_mode = 0
+offset_top = 229.0
+offset_right = 30.0
+offset_bottom = 241.0
+tooltip_text = "If true, the object can't be seen by the players."
+mouse_filter = 1
+theme_override_font_sizes/font_size = 8
+text = "hidden:"
+
+[node name="input" type="CheckBox" parent="UI/right_pane/entity_settings/hidden"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -6.0
+offset_right = 26.0
+offset_bottom = 6.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+
+[node name="humanlike_settings" type="Control" parent="UI/right_pane"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 250.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="personality" type="Label" parent="UI/right_pane/humanlike_settings"]
+layout_mode = 0
+offset_right = 46.0
+offset_bottom = 12.0
+theme_override_font_sizes/font_size = 8
+text = "personality:"
+
+[node name="input" type="TextEdit" parent="UI/right_pane/humanlike_settings/personality"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_right = 74.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/line_spacing = -1
+theme_override_font_sizes/font_size = 8
+wrap_mode = 1
+autowrap_mode = 1
+
+[node name="world_settings" type="Control" parent="UI/right_pane"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="scenario" type="Label" parent="UI/right_pane/world_settings"]
+layout_mode = 0
+offset_top = 24.0
+offset_right = 46.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 8
+text = "scenario:"
+
+[node name="input" type="TextEdit" parent="UI/right_pane/world_settings/scenario"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_right = 74.0
+offset_bottom = 98.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/line_spacing = -1
+theme_override_font_sizes/font_size = 8
+placeholder_text = "A humanoid robot is being tested in a secure facility. When it completes it's task, a voice should come from the speaker telling it what to do next."
+wrap_mode = 1
+autowrap_mode = 2
+
+[node name="name" type="Label" parent="UI/right_pane/world_settings"]
+layout_mode = 0
+offset_top = 4.0
+offset_right = 26.0
+offset_bottom = 16.0
+tooltip_text = "The name of the object.
+Visible to the game AI and the player AI."
+mouse_filter = 1
+theme_override_font_sizes/font_size = 8
+text = "name:"
+
+[node name="input" type="LineEdit" parent="UI/right_pane/world_settings/name"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -4.0
+offset_right = 94.0
+offset_bottom = 4.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 8
+text = "World"
+placeholder_text = "World"
+
+[node name="top_panel" type="TextureRect" parent="UI"]
+self_modulate = Color(1, 1, 1, 0.8)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 24.0
+grow_horizontal = 2
+texture = ExtResource("5_cegan")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="startstop" type="TextureButton" parent="UI/top_panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -20.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 20.0
+grow_horizontal = 0
+texture_normal = ExtResource("3_w48qg")
+texture_pressed = ExtResource("4_vivmo")
+texture_hover = ExtResource("8_yaehf")
+
+[node name="time_controls" type="Control" parent="UI/top_panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -88.0
+offset_top = 4.0
+offset_right = -32.0
+offset_bottom = 20.0
+grow_horizontal = 0
+
+[node name="frame_back" type="TextureButton" parent="UI/top_panel/time_controls"]
+layout_mode = 1
+offset_right = 16.0
+offset_bottom = 16.0
+texture_normal = ExtResource("6_yaehf")
+texture_pressed = ExtResource("7_074og")
+texture_hover = ExtResource("8_cegan")
+
+[node name="playpause" type="TextureButton" parent="UI/top_panel/time_controls"]
+layout_mode = 1
+offset_left = 20.0
+offset_right = 36.0
+offset_bottom = 16.0
+texture_normal = ExtResource("9_82xsv")
+texture_pressed = ExtResource("10_getpj")
+texture_hover = ExtResource("11_ryguw")
+
+[node name="frame_forward" type="TextureButton" parent="UI/top_panel/time_controls"]
+layout_mode = 1
+offset_left = 40.0
+offset_right = 56.0
+offset_bottom = 16.0
+texture_normal = ExtResource("12_d13ii")
+texture_pressed = ExtResource("13_1u8w0")
+texture_hover = ExtResource("14_0odxb")
+
+[node name="back" type="Button" parent="UI/top_panel"]
+visible = false
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 36.0
+offset_bottom = 20.0
+theme_override_constants/outline_size = 1
+theme_override_constants/line_spacing = -5
+theme_override_font_sizes/font_size = 5
+text = "<- Back"
+
+[node name="world" type="Control" parent="UI"]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 108.0
+offset_top = 24.0
+offset_right = -128.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="camera" type="Camera2D" parent="."]
+position = Vector2(320, 180)
+zoom = Vector2(1.5, 1.5)
+
+[connection signal="text_changed" from="UI/right_pane/entity_settings/name/input" to="." method="save_entity_settings"]
+[connection signal="item_selected" from="UI/right_pane/entity_settings/parent/input" to="." method="save_entity_settings"]
+[connection signal="text_changed" from="UI/right_pane/entity_settings/description/input" to="." method="save_entity_settings"]
+[connection signal="text_changed" from="UI/right_pane/entity_settings/status/input" to="." method="save_entity_settings"]
+[connection signal="text_changed" from="UI/right_pane/entity_settings/note/input" to="." method="save_entity_settings"]
+[connection signal="pressed" from="UI/right_pane/entity_settings/conceal/input" to="." method="save_entity_settings"]
+[connection signal="pressed" from="UI/right_pane/entity_settings/hidden/input" to="." method="save_entity_settings"]
+[connection signal="text_changed" from="UI/right_pane/humanlike_settings/personality/input" to="." method="save_entity_settings"]
+[connection signal="text_changed" from="UI/right_pane/world_settings/scenario/input" to="." method="save_entity_settings"]
+[connection signal="text_changed" from="UI/right_pane/world_settings/name/input" to="." method="save_entity_settings"]
+[connection signal="pressed" from="UI/top_panel/startstop" to="." method="_on_startstop_pressed"]

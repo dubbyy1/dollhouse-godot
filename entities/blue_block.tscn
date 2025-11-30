@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://j2ibeqwog1d5"]
+
+[ext_resource type="PackedScene" uid="uid://bph0b84cnxyfq" path="res://entity.tscn" id="1_mfv4i"]
+[ext_resource type="Texture2D" uid="uid://d0fpatnlc4ixv" path="res://sprites/entities/blue_block.png" id="2_mfv4i"]
+[ext_resource type="PackedScene" uid="uid://88ifvg30twwp" path="res://sibling_location.tscn" id="2_t3onq"]
+
+[node name="blue_block" instance=ExtResource("1_mfv4i")]
+game_name = "blue block"
+
+[node name="sibling_location" parent="sibling_locations" index="0"]
+position = Vector2(0, 16)
+
+[node name="sibling_location2" parent="sibling_locations" index="1" instance=ExtResource("2_t3onq")]
+position = Vector2(16, 0)
+
+[node name="sibling_location3" parent="sibling_locations" index="2" instance=ExtResource("2_t3onq")]
+position = Vector2(0, -16)
+
+[node name="sibling_location4" parent="sibling_locations" index="3" instance=ExtResource("2_t3onq")]
+position = Vector2(-16, 0)
+
+[node name="child_locations" parent="." index="1"]
+visible = false
+
+[node name="collision" parent="." index="2"]
+visible = false
+collision_mask = 0
+
+[node name="sprite" parent="." index="3"]
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("2_mfv4i")
+metadata/_edit_use_anchors_ = true
+
+[node name="selected" parent="sprite" index="0"]
+metadata/_edit_use_anchors_ = true
+
+[node name="button" parent="." index="4"]
+metadata/_edit_use_anchors_ = true
+
+[node name="edit_controls" parent="button" index="0"]
+metadata/_edit_use_anchors_ = true
+
+[node name="delete" parent="button/edit_controls" index="0"]
+metadata/_edit_use_anchors_ = true
+
+[node name="move" parent="button/edit_controls" index="2"]
+metadata/_edit_use_anchors_ = true

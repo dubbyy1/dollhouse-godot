@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://dvob17rtmbaln"]
+
+[ext_resource type="PackedScene" uid="uid://bph0b84cnxyfq" path="res://entity.tscn" id="1_we303"]
+[ext_resource type="Texture2D" uid="uid://bbg3cxf3gvrf3" path="res://sprites/entities/button.png" id="2_we303"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6e8rh"]
+size = Vector2(16, 16)
+
+[node name="button" instance=ExtResource("1_we303")]
+game_name = "button"
+
+[node name="collision" parent="sibling_locations" index="0"]
+position = Vector2(8, 24)
+
+[node name="collision2" type="CollisionShape2D" parent="sibling_locations" index="1"]
+position = Vector2(24, 8)
+shape = SubResource("RectangleShape2D_6e8rh")
+
+[node name="collision3" type="CollisionShape2D" parent="sibling_locations" index="2"]
+position = Vector2(8, -8)
+shape = SubResource("RectangleShape2D_6e8rh")
+
+[node name="collision4" type="CollisionShape2D" parent="sibling_locations" index="3"]
+position = Vector2(-8, 8)
+shape = SubResource("RectangleShape2D_6e8rh")
+
+[node name="child_locations" parent="." index="1"]
+visible = true
+
+[node name="sprite" parent="." index="3"]
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("2_we303")

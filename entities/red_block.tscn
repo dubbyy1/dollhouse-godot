@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://c60ap8qmn83nh"]
+
+[ext_resource type="PackedScene" uid="uid://bph0b84cnxyfq" path="res://entity.tscn" id="1_uelhv"]
+[ext_resource type="PackedScene" uid="uid://88ifvg30twwp" path="res://sibling_location.tscn" id="2_0yjyb"]
+[ext_resource type="Texture2D" uid="uid://c0i668u180uy7" path="res://sprites/entities/red_block.png" id="2_uelhv"]
+
+[node name="red_block" instance=ExtResource("1_uelhv")]
+game_name = "red block"
+
+[node name="sibling_locations" parent="." index="0"]
+visible = false
+
+[node name="sibling_location" parent="sibling_locations" index="0"]
+position = Vector2(0, 16)
+
+[node name="sibling_location2" parent="sibling_locations" index="1" instance=ExtResource("2_0yjyb")]
+position = Vector2(16, 0)
+
+[node name="sibling_location3" parent="sibling_locations" index="2" instance=ExtResource("2_0yjyb")]
+position = Vector2(0, -16)
+
+[node name="sibling_location4" parent="sibling_locations" index="3" instance=ExtResource("2_0yjyb")]
+position = Vector2(-16, 0)
+
+[node name="child_locations" parent="." index="1"]
+visible = false
+
+[node name="collision" parent="." index="2"]
+visible = false
+
+[node name="sprite" parent="." index="3"]
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("2_uelhv")

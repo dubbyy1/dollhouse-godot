@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://cboa2xud22r23"]
+
+[ext_resource type="PackedScene" uid="uid://bph0b84cnxyfq" path="res://entity.tscn" id="1_8mpls"]
+[ext_resource type="Texture2D" uid="uid://yrt278p48jaa" path="res://sprites/entities/robot.png" id="2_8mpls"]
+[ext_resource type="PackedScene" uid="uid://88ifvg30twwp" path="res://sibling_location.tscn" id="2_poxae"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dlbyq"]
+size = Vector2(16, 16)
+
+[node name="robot" instance=ExtResource("1_8mpls")]
+entity_type = "HumanLike"
+game_name = "robot"
+
+[node name="sibling_locations" parent="." index="0"]
+visible = false
+
+[node name="sibling_location" parent="sibling_locations" index="0"]
+position = Vector2(0, 16)
+
+[node name="sibling_location2" parent="sibling_locations" index="1" instance=ExtResource("2_poxae")]
+position = Vector2(16, 0)
+
+[node name="sibling_location3" parent="sibling_locations" index="2" instance=ExtResource("2_poxae")]
+position = Vector2(0, -16)
+
+[node name="sibling_location4" parent="sibling_locations" index="3" instance=ExtResource("2_poxae")]
+position = Vector2(-16, 0)
+
+[node name="child_locations" parent="." index="1"]
+visible = false
+
+[node name="collision" parent="." index="2"]
+visible = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="collision" index="0"]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_dlbyq")
+
+[node name="sprite" parent="." index="3"]
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("2_8mpls")
+expand_mode = 1
