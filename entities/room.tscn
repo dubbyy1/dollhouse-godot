@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://dkx78pdoooupf"]
+[gd_scene load_steps=11 format=4 uid="uid://dkx78pdoooupf"]
 
 [ext_resource type="PackedScene" uid="uid://bph0b84cnxyfq" path="res://entity.tscn" id="1_eblk4"]
 [ext_resource type="Texture2D" uid="uid://nicg1aj81gt" path="res://atlas_16x.png" id="2_cr1tc"]
@@ -6,13 +6,16 @@
 [ext_resource type="PackedScene" uid="uid://j0q63tpfddrl" path="res://child_location.tscn" id="3_kmf7a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eblk4"]
-size = Vector2(128, 32)
+size = Vector2(128, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cr1tc"]
-size = Vector2(8, 96)
+size = Vector2(2, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8k6c"]
+size = Vector2(2, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmf7a"]
-size = Vector2(128, 8)
+size = Vector2(128, 2)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kmf7a"]
 texture = ExtResource("2_cr1tc")
@@ -765,7 +768,8 @@ texture = ExtResource("2_cr1tc")
 [sub_resource type="TileSet" id="TileSet_y8k6c"]
 sources/0 = SubResource("TileSetAtlasSource_kmf7a")
 
-[node name="entity" instance=ExtResource("1_eblk4")]
+[node name="room" instance=ExtResource("1_eblk4")]
+game_name = "room"
 
 [node name="sibling_location" parent="sibling_locations" index="0"]
 position = Vector2(0, 128)
@@ -813,55 +817,48 @@ position = Vector2(128, 32)
 position = Vector2(128, 16)
 
 [node name="sibling_location17" parent="sibling_locations" index="15" instance=ExtResource("2_kmf7a")]
-position = Vector2(112, -16)
+position = Vector2(96, 0)
 
 [node name="sibling_location18" parent="sibling_locations" index="16" instance=ExtResource("2_kmf7a")]
-position = Vector2(96, -16)
+position = Vector2(80, 0)
 
 [node name="sibling_location19" parent="sibling_locations" index="17" instance=ExtResource("2_kmf7a")]
-position = Vector2(80, -16)
+position = Vector2(64, 0)
 
 [node name="sibling_location20" parent="sibling_locations" index="18" instance=ExtResource("2_kmf7a")]
-position = Vector2(64, -16)
+position = Vector2(48, 0)
 
 [node name="sibling_location21" parent="sibling_locations" index="19" instance=ExtResource("2_kmf7a")]
-position = Vector2(48, -16)
+position = Vector2(32, 0)
 
 [node name="sibling_location22" parent="sibling_locations" index="20" instance=ExtResource("2_kmf7a")]
-position = Vector2(32, -16)
+position = Vector2(16, 0)
 
 [node name="sibling_location23" parent="sibling_locations" index="21" instance=ExtResource("2_kmf7a")]
-position = Vector2(16, -16)
 
 [node name="sibling_location24" parent="sibling_locations" index="22" instance=ExtResource("2_kmf7a")]
-position = Vector2(0, -16)
-
-[node name="sibling_location25" parent="sibling_locations" index="23" instance=ExtResource("2_kmf7a")]
-position = Vector2(-16, 0)
-
-[node name="sibling_location26" parent="sibling_locations" index="24" instance=ExtResource("2_kmf7a")]
 position = Vector2(-16, 16)
 
-[node name="sibling_location27" parent="sibling_locations" index="25" instance=ExtResource("2_kmf7a")]
+[node name="sibling_location25" parent="sibling_locations" index="23" instance=ExtResource("2_kmf7a")]
 position = Vector2(-16, 32)
 
-[node name="sibling_location28" parent="sibling_locations" index="26" instance=ExtResource("2_kmf7a")]
+[node name="sibling_location26" parent="sibling_locations" index="24" instance=ExtResource("2_kmf7a")]
 position = Vector2(-16, 48)
 
-[node name="sibling_location29" parent="sibling_locations" index="27" instance=ExtResource("2_kmf7a")]
+[node name="sibling_location27" parent="sibling_locations" index="25" instance=ExtResource("2_kmf7a")]
 position = Vector2(-16, 64)
 
-[node name="sibling_location30" parent="sibling_locations" index="28" instance=ExtResource("2_kmf7a")]
+[node name="sibling_location28" parent="sibling_locations" index="26" instance=ExtResource("2_kmf7a")]
 position = Vector2(-16, 80)
 
-[node name="sibling_location31" parent="sibling_locations" index="29" instance=ExtResource("2_kmf7a")]
+[node name="sibling_location29" parent="sibling_locations" index="27" instance=ExtResource("2_kmf7a")]
 position = Vector2(-16, 96)
 
-[node name="sibling_location32" parent="sibling_locations" index="30" instance=ExtResource("2_kmf7a")]
+[node name="sibling_location30" parent="sibling_locations" index="28" instance=ExtResource("2_kmf7a")]
 position = Vector2(-16, 112)
 
-[node name="sibling_location16" parent="sibling_locations" index="31" instance=ExtResource("2_kmf7a")]
-position = Vector2(128, 0)
+[node name="sibling_location16" parent="sibling_locations" index="29" instance=ExtResource("2_kmf7a")]
+position = Vector2(112, 0)
 
 [node name="child_location" parent="child_locations" index="0"]
 position = Vector2(16, 32)
@@ -953,20 +950,74 @@ position = Vector2(48, 64)
 [node name="child_location30" parent="child_locations" index="29" instance=ExtResource("3_kmf7a")]
 position = Vector2(64, 64)
 
+[node name="child_location31" parent="child_locations" index="30" instance=ExtResource("3_kmf7a")]
+position = Vector2(0, 112)
+
+[node name="child_location32" parent="child_locations" index="31" instance=ExtResource("3_kmf7a")]
+position = Vector2(16, 112)
+
+[node name="child_location33" parent="child_locations" index="32" instance=ExtResource("3_kmf7a")]
+position = Vector2(32, 112)
+
+[node name="child_location34" parent="child_locations" index="33" instance=ExtResource("3_kmf7a")]
+position = Vector2(48, 112)
+
+[node name="child_location35" parent="child_locations" index="34" instance=ExtResource("3_kmf7a")]
+position = Vector2(64, 112)
+
+[node name="child_location36" parent="child_locations" index="35" instance=ExtResource("3_kmf7a")]
+position = Vector2(80, 112)
+
+[node name="child_location37" parent="child_locations" index="36" instance=ExtResource("3_kmf7a")]
+position = Vector2(96, 112)
+
+[node name="child_location38" parent="child_locations" index="37" instance=ExtResource("3_kmf7a")]
+position = Vector2(112, 112)
+
+[node name="child_location39" parent="child_locations" index="38" instance=ExtResource("3_kmf7a")]
+position = Vector2(112, 96)
+
+[node name="child_location40" parent="child_locations" index="39" instance=ExtResource("3_kmf7a")]
+position = Vector2(112, 80)
+
+[node name="child_location41" parent="child_locations" index="40" instance=ExtResource("3_kmf7a")]
+position = Vector2(112, 64)
+
+[node name="child_location42" parent="child_locations" index="41" instance=ExtResource("3_kmf7a")]
+position = Vector2(112, 48)
+
+[node name="child_location43" parent="child_locations" index="42" instance=ExtResource("3_kmf7a")]
+position = Vector2(112, 32)
+
+[node name="child_location44" parent="child_locations" index="43" instance=ExtResource("3_kmf7a")]
+position = Vector2(0, 32)
+
+[node name="child_location45" parent="child_locations" index="44" instance=ExtResource("3_kmf7a")]
+position = Vector2(0, 48)
+
+[node name="child_location46" parent="child_locations" index="45" instance=ExtResource("3_kmf7a")]
+position = Vector2(0, 64)
+
+[node name="child_location47" parent="child_locations" index="46" instance=ExtResource("3_kmf7a")]
+position = Vector2(0, 80)
+
+[node name="child_location48" parent="child_locations" index="47" instance=ExtResource("3_kmf7a")]
+position = Vector2(0, 96)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collision" index="0"]
-position = Vector2(64, 16)
+position = Vector2(64, 32)
 shape = SubResource("RectangleShape2D_eblk4")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="collision" index="1"]
-position = Vector2(124, 80)
+position = Vector2(128, 80)
 shape = SubResource("RectangleShape2D_cr1tc")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="collision" index="2"]
-position = Vector2(4, 80)
-shape = SubResource("RectangleShape2D_cr1tc")
+position = Vector2(0, 80)
+shape = SubResource("RectangleShape2D_y8k6c")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="collision" index="3"]
-position = Vector2(64, 124)
+position = Vector2(64, 128)
 shape = SubResource("RectangleShape2D_kmf7a")
 
 [node name="sprite" parent="." index="3"]

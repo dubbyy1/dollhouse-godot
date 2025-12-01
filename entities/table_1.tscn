@@ -11,6 +11,9 @@ size = Vector2(32, 16)
 [node name="table_1" instance=ExtResource("1_bb0bq")]
 game_name = "table"
 
+[node name="sibling_locations" parent="." index="0"]
+visible = false
+
 [node name="sibling_location2" parent="sibling_locations" index="0" instance=ExtResource("2_r2mok")]
 position = Vector2(16, 16)
 
@@ -44,8 +47,9 @@ position = Vector2(16, 8)
 shape = SubResource("RectangleShape2D_dlbyq")
 
 [node name="sprite" parent="." index="3"]
+offset_top = 2.0
 offset_right = 32.0
-offset_bottom = 16.0
+offset_bottom = 18.0
 texture = ExtResource("2_omocl")
 
 [node name="button" parent="." index="4"]

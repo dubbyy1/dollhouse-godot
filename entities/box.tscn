@@ -36,6 +36,7 @@ position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_ls4fa")
 
 [node name="sprite" parent="." index="3"]
+offset_top = -2.0
 offset_right = 16.0
-offset_bottom = 16.0
+offset_bottom = 14.0
 texture = ExtResource("2_ls4fa")

@@ -12,6 +12,7 @@ var child_positions:PackedVector2Array = []
 @export var id:int
 
 @export var game_name:String
+var path:String = "/" + game_name
 @export var parent:int
 @export var description:String
 @export var status:String
@@ -23,6 +24,7 @@ var child_positions:PackedVector2Array = []
 var game_position:int = -1
 
 var state:int = Globals.FLOATING
+var moving:bool = false
 
 var hovered = false
 enum {
@@ -31,12 +33,16 @@ enum {
 }
 var edit_state:int = IDLE
 
+var sprite_start_y = 0
+var sprite_overlap_y = 0
+
 signal select_entity
 signal destroy_entity
 signal move_entity
 signal duplicate_entity
 
 func _ready():
+	sprite_start_y = $sprite.position.y
 	for c in $sibling_locations.get_children():
 		c.body_entered.connect(update_positions)
 	for c in $child_locations.get_children():
@@ -59,11 +65,21 @@ func update_positions(body):
 					else:
 						c.visible = false
 
+func _process(delta):
+	if moving:
+		global_position = global_position.move_toward($navigator.get_next_path_position(), 2)
+		set_child_locations()
+		set_sibling_locations()
+		if $navigator.is_navigation_finished():
+			moving = false
+
 func _input(event):
 	if event is InputEventMouseMotion:
 		update_positions(null)
 
 func update(data):
+	if data["path"] != path:
+		path = data["path"]
 	if data["status"] != status:
 		status = data["status"]
 	
@@ -72,14 +88,21 @@ func update(data):
 		if data["position"] == -1 or data["position"] == parent:
 			game_position = data["position"]
 			var available_locations = get_node("/root/main").entities[parent].get_free_child_locations()
+			if len(get_node("/root/main").entities[parent].child_positions) >= len(get_node("/root/main").entities[parent].child_locations):
+				sprite_overlap_y = (len(get_node("/root/main").entities[parent].child_positions) - len(get_node("/root/main").entities[parent].child_locations) + 1) * 2
 			move(available_locations)
 		else:
 			game_position = data["position"]
 			var available_locations = get_node("/root/main").entities[game_position].get_free_sibling_locations()
+			if len(get_node("/root/main").entities[game_position].sibling_positions) >= len(get_node("/root/main").entities[game_position].sibling_locations):
+				sprite_overlap_y = (len(get_node("/root/main").entities[game_position].sibling_positions) - len(get_node("/root/main").entities[game_position].sibling_locations) + 1) * 2
 			move(available_locations)
+		#reparent(get_node("/root/main").entities[parent])
 	elif data["position"] != game_position:
 		game_position = data["position"]
 		var available_locations = get_node("/root/main").entities[game_position].get_free_sibling_locations()
+		if len(get_node("/root/main").entities[game_position].sibling_positions) >= len(get_node("/root/main").entities[game_position].sibling_locations):
+			sprite_overlap_y = (len(get_node("/root/main").entities[game_position].sibling_positions) - len(get_node("/root/main").entities[game_position].sibling_locations) + 1) * 2
 		move(available_locations)
 	print(str(id) + ": " + str(data))
 
@@ -94,6 +117,10 @@ func move(available_locations:Array):
 	available_locations.sort_custom(sort_locations)
 	if entity_type == "Entity" or entity_type == "RobotLike":
 		global_position = available_locations[0] * Vector2(16, 16)
+		
+		$sprite.position.y = sprite_start_y - ((path.count("/") - 1) * 4)
+		set_child_locations()
+		set_sibling_locations()
 	elif entity_type == "HumanLike":
 		var reachable_squares = []
 		for square in available_locations:
@@ -102,8 +129,13 @@ func move(available_locations:Array):
 				reachable_squares.append(square)
 		if reachable_squares:
 			$navigator.target_position = reachable_squares[0] * Vector2(16, 16)
+			moving = true
+			set_child_locations()
+			set_sibling_locations()
 		else:
 			global_position = available_locations[0] * Vector2(16, 16)
+			set_child_locations()
+			set_sibling_locations()
 
 func set_state(new_state):
 	match new_state:
@@ -148,7 +180,7 @@ func set_child_locations():
 	child_positions = []
 	for c in $child_locations.get_children():
 		var grid_pos = Vector2i(c.global_position) / Vector2i(16, 16)
-		if c.get_overlapping_bodies() != [$collision]:
+		if c.get_overlapping_bodies() != [$collision] and c.get_overlapping_bodies() != []:
 			child_positions.append(grid_pos)
 		grid_locations.append(grid_pos)
 	
@@ -195,6 +227,7 @@ func _on_delete_pressed():
 	queue_free()
 
 func _on_move_pressed():
+	global_position = get_global_mouse_position()# - Vector2(16, 16)# - $button/edit_controls.position - Vector2(6.5, 6.5)
 	move_entity.emit(id)
 	set_state(Globals.FLOATING)
 
@@ -216,6 +249,7 @@ func get_code():
 		code += "\n\t'parent': 0,"
 	else:
 		code += "\n\t'parent': {0},".format(["entity_" + str(parent) + "_id"])
+	code += "\n\t'id': {0},".format([id])
 	code += "\n\t'description': '''{0}''',".format([description])
 	code += "\n\t'status': '''{0}''',".format([status])
 	code += "\n\t'personality': '''{0}''',".format([personality])

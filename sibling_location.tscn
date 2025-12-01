@@ -3,13 +3,12 @@
 [ext_resource type="Texture2D" uid="uid://bgiyqagghd0i4" path="res://sprites/editor/sibling_location.png" id="1_xi7oh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jgsxs"]
-size = Vector2(14, 14)
+size = Vector2(12, 12)
 
 [node name="sibling_location" type="Area2D"]
 collision_layer = 0
 
 [node name="collision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_jgsxs")
 

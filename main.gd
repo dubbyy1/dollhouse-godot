@@ -18,7 +18,6 @@ var scenario = ""
 var game_out = []
 var game_process = {}
 var game_states = []
-var game_ids = [0]
 var current_frame = 0
 
 var state = Globals.EDITING
@@ -160,16 +159,19 @@ func _process(_delta):
 	
 	if running:
 		run()
-		if Engine.get_frames_drawn() % 60 == 0:
+		if Engine.get_frames_drawn() % 300 == 0:
 			if len(game_states) >= current_frame + 1:
 				tick(current_frame)
 				current_frame += 1
 
 func tick(frame_id):
+	if not OS.is_process_running(game_process["pid"]):
+		print(game_process["stderr"].get_as_text())
+	
 	var frame = JSON.parse_string(game_states[frame_id])
 	for entity_id in frame:
 		var data = frame[entity_id]
-		entities[game_ids[int(entity_id)]].update(data)
+		entities[int(entity_id)].update(data)
 
 func update(data):
 	pass
@@ -200,15 +202,15 @@ func _input(event):
 					var controls_have_focus = Rect2(Vector2(), focus_owner.get_child(0).size).has_point(focus_owner.get_child(0).get_local_mouse_position())
 					if not button_has_focus and not controls_have_focus:
 						select_entity(0)
-			
-			if event.is_action("zoom in") and event.is_pressed():
-				$camera.zoom.x = clamp($camera.zoom.x + 0.05, 0.2, 5.0)
-				$camera.zoom.y = clamp($camera.zoom.y + 0.05, 0.2, 5.0)
-			if event.is_action("zoom out") and event.is_pressed():
-				$camera.zoom.x = clamp($camera.zoom.x - 0.05, 0.2, 5.0)
-				$camera.zoom.y = clamp($camera.zoom.y - 0.05, 0.2, 5.0)
-			if event is InputEventMouseMotion and Input.is_action_pressed("pan"):
-				$camera.global_position -= (event.relative / $camera.zoom.x)
+	
+	if event.is_action("zoom in") and event.is_pressed():
+		$camera.zoom.x = clamp($camera.zoom.x + 0.05, 0.2, 5.0)
+		$camera.zoom.y = clamp($camera.zoom.y + 0.05, 0.2, 5.0)
+	if event.is_action("zoom out") and event.is_pressed():
+		$camera.zoom.x = clamp($camera.zoom.x - 0.05, 0.2, 5.0)
+		$camera.zoom.y = clamp($camera.zoom.y - 0.05, 0.2, 5.0)
+	if event is InputEventMouseMotion and Input.is_action_pressed("pan"):
+		$camera.global_position -= (event.relative / $camera.zoom.x)
 
 func load_entity_list():
 	var list = DirAccess.get_files_at("res://entities/")
@@ -251,7 +253,6 @@ func compile():
 				compiled_entities.append(ancestor_id)
 				code += entities[ancestor_id].get_code()
 	
-	game_ids = compiled_entities
 	code += "game.start()\n\nwhile True:\n\tgame.tick()\n\tprint(game.get_game_state())\n\tgame.fill_schedule()\n"
 	
 	return code

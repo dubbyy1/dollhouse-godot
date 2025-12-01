@@ -46,7 +46,6 @@ offset_right = 16.0
 offset_bottom = 16.0
 
 [node name="edit_controls" type="Control" parent="button"]
-visible = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
