@@ -67,7 +67,8 @@ func update_positions(body):
 
 func _process(delta):
 	if moving:
-		global_position = global_position.move_toward($navigator.get_next_path_position(), 2)
+		global_position = global_position.move_toward($navigator.get_next_path_position(), 0.5)
+		print("moving")
 		set_child_locations()
 		set_sibling_locations()
 		if $navigator.is_navigation_finished():
